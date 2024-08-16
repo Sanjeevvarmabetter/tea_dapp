@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import abi from "./contractJSON/chai.json";
 import { ethers } from "ethers";
 import './App.css';
+import Buy from './components/Buy';
+
+
+import Memos from './components/Memos';
+
+
+
 
 function App() {
   const [state, setState] = useState({
@@ -53,7 +60,9 @@ function App() {
   return (
     <div>
       <h1>Connected Account: {account}</h1>
-
+   
+      <Buy state={state} />
+      <Memos state={state} />
     </div>
   );
 }
