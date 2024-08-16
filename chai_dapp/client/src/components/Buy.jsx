@@ -1,5 +1,5 @@
 import React from "react";
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 // this is all about buying the chai
 
 // this react code need to talk with the smartcontract
@@ -11,6 +11,8 @@ const Buy=({state})=>{
         const {contract}=state;
         const name = document.querySelector("#name");
         const message = document.querySelector("#message");
+        try {
+        
         const amount = {value:ethers.utils.parseEther("0.01")};
 
         // we need to convert ether to wei
@@ -20,7 +22,11 @@ const Buy=({state})=>{
         await transaction.wait();
         alert("Transaction is successul");
         window.location.reload();
+    } catch (error) {
+        console.error("Transaction failed: ",error);
+        alert("Transaction failed. see console for details");
     }
+};
     
     
     return(
