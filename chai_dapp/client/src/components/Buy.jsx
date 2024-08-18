@@ -1,44 +1,43 @@
 import React from "react";
 import { ethers } from "ethers";
-// this is all about buying the chai
-
-// this react code need to talk with the smartcontract
-// for that use ethers
-const Buy=({state})=>{
+import "./Buy.css"
+const Buy = ({ state }) => {
+  const buyChai = async (event) => {
+    event.preventDefault();
+    const { contract } = state;
+    const name = document.querySelector("#name").value;
+    const message = document.querySelector("#message").value;
     
-    const BuyChai = async(event) => {
-        event.preventDefault();
-        const {contract}=state;
-        const name = document.querySelector("#name");
-        const message = document.querySelector("#message");
-        try {
-        
-        const amount = {value:ethers.utils.parseEther("0.01")};
-
-        // we need to convert ether to wei
-        // const amount = {value:0.01}
-
-        const transaction = await contract.BuyChai(name,message,amount)
-        await transaction.wait();
-        alert("Transaction is successul");
-        window.location.reload();
+    try {
+      const amount = { value: ethers.utils.parseEther("0.01") };
+      const transaction = await contract.buyChai(name, message, amount);
+      await transaction.wait();
+      alert("Transaction is successful");
+      window.location.reload();
     } catch (error) {
-        console.error("Transaction failed: ",error);
-        alert("Transaction failed. see console for details");
+      console.error("Transaction failed: ", error);
+      alert("Transaction failed. See console for details.");
     }
-};
-    
-    
-    return(
-        <div>
-            <form onSubmit={BuyChai}>
-                <input id="name"></input>
-                <input id="message"></input>
-                <button>Pay</button>
-            </form>
+  };
+
+  return (
+    <div className="center">
+      <h1>Thanks</h1>
+      <form onSubmit={buyChai}>
+        <div className="inputbox">
+          <input type="text" required id="name" />
+          <span>Name</span>
         </div>
-    );
-}
+        <div className="inputbox">
+          <input type="text" required id="message" />
+          <span>Message</span>
+        </div>
+        <div className="inputbox">
+          <input type="submit" value="Pay" disabled={!state.contract} />
+        </div>
+      </form>
+    </div>
+  );
+};
 
-
-export default Buy;  
+export default Buy;
