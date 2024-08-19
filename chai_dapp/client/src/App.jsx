@@ -48,6 +48,7 @@ function App() {
 
             
         setState({ provider, signer, contract });
+        setAccount(accounts);
 
       } catch (error) {
         console.log(error);
